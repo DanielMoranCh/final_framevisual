@@ -1,3 +1,13 @@
+var data=[3,5,10,6,4,3,15,18,2,4,5,10,12];
+var dataX=[3,5,10,6,4,3,15,18,2,4,5,10,12];
+var dataY=[10,10,10,10,10,10,10,10,10,10,10,10,10];
+var dataY1=[3,5,10,6,4,3,15,18,2,4,5,10,12];
+var dataY2=[5,6,11,2,5,3,13,10,5,3,5,6,7];
+var dataY3=[10,10,10,10,10,10,10,10,10,10,10,10,10];
+var dataY4=[1,2,3,4,5,6,7,8,9,10,11,12,13];
+var w = 1200;
+var h = 300;
+var barPadding = 1;
 
 d3.csv("d3.csv", function(data){
     //console.log(data.Overall);
@@ -7,11 +17,7 @@ d3.csv("d3.csv", function(data){
 	dataY2 = data.PayTax;
 	dataY3 = data.StarBusiness;
 	dataY4 = data.RegisterPropertyN;});	 
-		
-var w = 1200;
-var h = 300;
-var barPadding = 1;
-funcion();
+
 var margin={top:20,right:20,bottom:30,left:40};
 
 var svg = d3.select("#chart")
@@ -24,12 +30,12 @@ var svg = d3.select("#chart")
 				
 var xScale= d3.scaleBand()
 				.domain(d3.range(dataX.length))
-				.rangeRound([0,w]);
+				.rangeRound([0,w])
+				.paddingInner(0.05);
 
 var xAxis= d3.axisBottom(xScale);
 
 svg.append("g")
-	.attr("class","bar")
 	.attr("class", "x axis")
 	.attr("transform", "translate(0,"+h+")")
 	.call(xAxis);
@@ -80,12 +86,13 @@ svg.selectAll("textBar")
 		return xScale(i)+(xScale.bandwidth())/2;
 	})
 	.attr("y", function(d){
-		return yScale(d)-2;
+		return yScale(d)+14;
 	})
 	.attr("class","textBar");
 
 	
 var updateDataS=function(valor){																																													funcion();
+		var infoY = '';
 		if(valor=='a')
 			infoY=dataY1;
 		if(valor=='b')
@@ -256,7 +263,7 @@ var updateDataS=function(valor){																																													fun
 					return xScale(i)+(xScale.bandwidth())/2;
 				})
 				.attr("y", function(d){
-					return yScale(d)+14;
+					return yScale(d)+2;
 				});
 			
 		textBar.exit().remove();
